@@ -422,6 +422,7 @@ const schedule = [
 // Detect current week based on today's date
 function getCurrentWeek() {
   const today = new Date();
+  today.setHours(0,0,0,0);
   const dates = [
     new Date('2026-05-13'), new Date('2026-05-20'), new Date('2026-05-27'),
     new Date('2026-06-03'), new Date('2026-06-10'), new Date('2026-06-17'),
@@ -430,9 +431,12 @@ function getCurrentWeek() {
     new Date('2026-08-05'), new Date('2026-08-12'), new Date('2026-08-19'),
     new Date('2026-08-26'),
   ];
+  // A week is completed the day AFTER its Wednesday
+  // So show the next Wednesday on or after today as "This Week"
   for (let i = 0; i < dates.length; i++) {
-    const next = dates[i+1] || new Date('2026-09-02');
-    if (today >= dates[i] && today < next) return i + 1;
+    const dayAfter = new Date(dates[i]);
+    dayAfter.setDate(dayAfter.getDate() + 1);
+    if (today < dayAfter) return i + 1;
   }
   return null;
 }
