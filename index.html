@@ -3,527 +3,369 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 Mens Golf League — Schedule</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>2026 Mens Golf League</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --green-deep:   #0f3d1a;
-    --green-mid:    #1a5c2a;
-    --green-bright: #2d8a3e;
-    --green-light:  #4caf50;
-    --gold:         #c9a84c;
-    --gold-light:   #f0d080;
-    --cream:        #f8f4e8;
-    --white:        #ffffff;
-    --gray-light:   #f0ede4;
-    --gray-mid:     #c8c0a8;
-    --text-dark:    #1a1a0e;
-    --text-mid:     #3a3a2a;
-    --red:          #8b1a1a;
-    --orange:       #c97020;
+    --green-deep:#0a2e12;--green-dark:#0f3d1a;--green-mid:#1a5c2a;--green-bright:#2d8a3e;
+    --gold:#c9a84c;--gold-light:#e8cc7a;--gold-pale:#f5e9c0;--cream:#f8f4e8;
+    --white:#ffffff;--gray-light:#f0ede4;--gray-mid:#c8c0a8;--red:#8b1a1a;--orange:#c97020;
   }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--green-deep);font-family:'DM Sans',sans-serif;color:var(--cream);min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,0.08) 0%,transparent 60%),radial-gradient(ellipse at 0% 100%,rgba(45,138,62,0.1) 0%,transparent 50%);pointer-events:none;z-index:0;}
+  .container{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:0 16px 60px;}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* NAV TABS */
+  .nav{display:flex;gap:4px;padding:16px 0 0;position:sticky;top:0;z-index:100;background:var(--green-deep);border-bottom:1px solid rgba(201,168,76,0.15);}
+  .nav-btn{flex:1;padding:10px 4px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--gray-mid);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+  .nav-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+  .nav-btn:hover{color:var(--gold-light);}
 
-  body {
-    background: var(--green-deep);
-    font-family: 'DM Sans', sans-serif;
-    color: var(--cream);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  /* HEADER */
+  .header{text-align:center;padding:32px 0 24px;}
+  .header h1{font-family:'Playfair Display',serif;font-size:clamp(24px,7vw,40px);font-weight:900;color:var(--white);line-height:1.1;}
+  .header h1 span{color:var(--gold);}
+  .header-sub{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gray-mid);margin-top:8px;}
+  .gold-line{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:14px auto 0;}
 
-  /* ── Background texture ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      radial-gradient(ellipse at 20% 20%, rgba(45,138,62,0.15) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 80%, rgba(201,168,76,0.08) 0%, transparent 50%),
-      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-  }
+  /* PAGES */
+  .page{display:none;}.page.active{display:block;}
 
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 0 16px 60px;
-  }
+  /* ── LEADERBOARD ── */
+  .week-badge{display:inline-block;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.4);border-radius:20px;padding:5px 18px;font-size:11px;font-weight:600;color:var(--gold-light);letter-spacing:1.5px;text-transform:uppercase;margin:16px 0 8px;}
+  .updated{font-size:11px;color:var(--gray-mid);text-align:center;margin-bottom:20px;}
+  .lb-wrap{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;margin-bottom:28px;}
+  .lb-thead{display:grid;grid-template-columns:44px 1fr 50px 64px;padding:10px 16px;background:rgba(201,168,76,0.12);border-bottom:1px solid rgba(201,168,76,0.2);}
+  .lb-thead span{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);text-align:center;}
+  .lb-thead span:nth-child(2){text-align:left;}
+  .lb-row{display:grid;grid-template-columns:44px 1fr 50px 64px;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,0.05);align-items:center;transition:background 0.15s;}
+  .lb-row:last-child{border-bottom:none;}
+  .lb-row:hover{background:rgba(255,255,255,0.04);}
+  .lb-row.gold-row{background:rgba(201,168,76,0.07);}
+  .rank{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;text-align:center;}
+  .rank.r1{color:var(--gold);font-size:22px;}
+  .rank.r2{color:#b8b8b8;}
+  .rank.r3{color:#c87941;}
+  .rank.other{color:rgba(255,255,255,0.3);font-size:13px;}
+  .team-info{padding-left:8px;}
+  .player-row{display:flex;align-items:center;gap:6px;margin-bottom:2px;}
+  .player-name{font-size:13px;font-weight:500;color:var(--white);}
+  .hc-badge{font-size:10px;color:var(--gold);background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.25);border-radius:4px;padding:1px 5px;font-weight:600;white-space:nowrap;}
+  .team-num-lbl{font-size:10px;color:var(--gray-mid);margin-top:1px;}
+  .wk-pts{font-size:14px;font-weight:600;color:var(--cream);text-align:center;}
+  .season-pts{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--gold);text-align:center;}
+  .cut-line{display:flex;align-items:center;gap:10px;padding:7px 16px;background:rgba(100,20,20,0.15);border-top:1px solid rgba(139,26,26,0.2);border-bottom:1px solid rgba(139,26,26,0.2);}
+  .cut-text{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(200,100,100,0.6);white-space:nowrap;}
+  .cut-bar{flex:1;height:1px;background:rgba(139,26,26,0.25);}
 
-  /* ── Header ── */
-  .header {
-    text-align: center;
-    padding: 48px 0 32px;
-    animation: fadeDown 0.8s ease both;
-  }
+  /* ── SUBS ── */
+  .section-hdr{display:flex;align-items:center;gap:10px;margin:24px 0 12px;}
+  .section-hdr h2{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);white-space:nowrap;}
+  .section-bar{flex:1;height:1px;background:rgba(201,168,76,0.2);}
+  .subs-wrap{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;}
+  .sub-thead{display:grid;grid-template-columns:1fr 80px 110px;padding:10px 16px;background:rgba(201,168,76,0.08);border-bottom:1px solid rgba(201,168,76,0.15);}
+  .sub-thead span{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);text-align:center;}
+  .sub-thead span:first-child{text-align:left;}
+  .sub-row{display:grid;grid-template-columns:1fr 80px 110px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.05);align-items:center;}
+  .sub-row:last-child{border-bottom:none;}
+  .sub-name{font-size:13px;font-weight:500;color:var(--white);}
+  .sub-note{font-size:11px;color:var(--gray-mid);margin-top:2px;}
+  .sub-hc{font-size:14px;font-weight:600;color:var(--gold);text-align:center;}
+  .sub-played{font-size:12px;color:var(--gray-mid);text-align:center;}
 
-  .header-flag {
-    display: inline-block;
-    font-size: 40px;
-    margin-bottom: 12px;
-    animation: bounce 2s ease-in-out infinite;
-  }
+  /* ── SCHEDULE ── */
+  .filter-bar{display:flex;gap:8px;overflow-x:auto;padding:12px 0 16px;scrollbar-width:none;}
+  .filter-bar::-webkit-scrollbar{display:none;}
+  .filter-btn{flex-shrink:0;padding:6px 14px;border-radius:20px;border:1px solid rgba(201,168,76,0.3);background:rgba(255,255,255,0.05);color:var(--gray-mid);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+  .filter-btn.active,.filter-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--green-deep);font-weight:600;}
+  .week-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;margin-bottom:14px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;}
+  .week-card:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.3);}
+  .week-card.current-week{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 4px 24px rgba(201,168,76,0.2);}
+  .week-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:linear-gradient(135deg,var(--green-mid),var(--green-bright));cursor:pointer;user-select:none;}
+  .week-header.alt{background:linear-gradient(135deg,#1e4d28,#2a6e38);}
+  .week-header.tbd{background:linear-gradient(135deg,#5a3800,#8a5800);}
+  .week-header.position{background:linear-gradient(135deg,var(--red),#b02020);}
+  .week-label{display:flex;align-items:center;gap:10px;}
+  .week-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--gold-light);line-height:1;}
+  .week-info{display:flex;flex-direction:column;}
+  .week-title{font-size:13px;font-weight:600;color:var(--white);letter-spacing:0.5px;}
+  .week-date{font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px;}
+  .week-toggle{font-size:18px;color:rgba(255,255,255,0.5);transition:transform 0.3s;}
+  .week-card.open .week-toggle{transform:rotate(180deg);}
+  .matchups{display:none;padding:4px 0;}
+  .week-card.open .matchups{display:block;}
+  .matchup-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,0.05);gap:8px;}
+  .matchup-row:last-child{border-bottom:none;}
+  .matchup-row:hover{background:rgba(255,255,255,0.04);}
+  .team-side{display:flex;flex-direction:column;gap:3px;}
+  .team-side.right{text-align:right;}
+  .team-side.right .player-row{flex-direction:row-reverse;}
+  .team-num-tag{font-size:10px;font-weight:600;color:var(--gold);letter-spacing:1px;text-transform:uppercase;}
+  .vs-badge{width:28px;height:28px;border-radius:50%;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--gold);flex-shrink:0;}
+  .tbd-msg{padding:20px 18px;font-size:13px;color:var(--gold-light);font-style:italic;text-align:center;line-height:1.6;}
+  .current-badge{background:var(--gold);color:var(--green-deep);font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;letter-spacing:0.5px;text-transform:uppercase;}
 
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-  }
-
-  .header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(26px, 7vw, 42px);
-    font-weight: 900;
-    color: var(--white);
-    line-height: 1.1;
-    letter-spacing: -0.5px;
-  }
-
-  .header h1 span {
-    color: var(--gold);
-  }
-
-  .header-sub {
-    margin-top: 10px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--gray-mid);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  .header-divider {
-    width: 60px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 18px auto 0;
-  }
-
-  /* ── Week filter tabs ── */
-  .filter-bar {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding: 8px 0 16px;
-    scrollbar-width: none;
-    animation: fadeUp 0.6s 0.3s ease both;
-  }
-  .filter-bar::-webkit-scrollbar { display: none; }
-
-  .filter-btn {
-    flex-shrink: 0;
-    padding: 6px 14px;
-    border-radius: 20px;
-    border: 1px solid rgba(201,168,76,0.3);
-    background: rgba(255,255,255,0.05);
-    color: var(--gray-mid);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-  .filter-btn:hover, .filter-btn.active {
-    background: var(--gold);
-    border-color: var(--gold);
-    color: var(--green-deep);
-    font-weight: 600;
-  }
-
-  /* ── Week cards ── */
-  .week-card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 16px;
-    margin-bottom: 16px;
-    overflow: hidden;
-    animation: fadeUp 0.5s ease both;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .week-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-  }
-
-  .week-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 18px;
-    background: linear-gradient(135deg, var(--green-mid), var(--green-bright));
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .week-header.alt {
-    background: linear-gradient(135deg, #1e4d28, #2a6e38);
-  }
-
-  .week-header.tbd {
-    background: linear-gradient(135deg, #5a3800, #8a5800);
-  }
-
-  .week-header.position {
-    background: linear-gradient(135deg, var(--red), #b02020);
-  }
-
-  .week-label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .week-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--gold-light);
-    line-height: 1;
-  }
-
-  .week-info {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .week-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--white);
-    letter-spacing: 0.5px;
-  }
-
-  .week-date {
-    font-size: 11px;
-    color: rgba(255,255,255,0.6);
-    margin-top: 2px;
-  }
-
-  .week-toggle {
-    font-size: 18px;
-    color: rgba(255,255,255,0.5);
-    transition: transform 0.3s;
-  }
-  .week-card.open .week-toggle { transform: rotate(180deg); }
-
-  /* ── Matchups ── */
-  .matchups {
-    display: none;
-    padding: 4px 0;
-  }
-  .week-card.open .matchups { display: block; }
-
-  .matchup-row {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    padding: 12px 18px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    gap: 8px;
-    transition: background 0.2s;
-  }
-  .matchup-row:last-child { border-bottom: none; }
-  .matchup-row:hover { background: rgba(255,255,255,0.04); }
-
-  .team-side {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .team-side.right {
-    text-align: right;
-  }
-
-  .team-num {
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  .player-name {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--white);
-    line-height: 1.3;
-  }
-
-  .vs-badge {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: rgba(201,168,76,0.15);
-    border: 1px solid rgba(201,168,76,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 9px;
-    font-weight: 700;
-    color: var(--gold);
-    letter-spacing: 0.5px;
-    flex-shrink: 0;
-  }
-
-  /* ── TBD / Position cards ── */
-  .tbd-message {
-    padding: 20px 18px;
-    font-size: 13px;
-    color: var(--gold-light);
-    font-style: italic;
-    text-align: center;
-    line-height: 1.6;
-  }
-
-  /* ── Legend ── */
-  .legend {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 24px 0 8px;
-    animation: fadeUp 0.6s 0.5s ease both;
-  }
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    color: var(--gray-mid);
-  }
-  .legend-dot {
-    width: 10px; height: 10px;
-    border-radius: 2px;
-  }
-
-  /* ── Footer ── */
-  .footer {
-    text-align: center;
-    padding: 32px 0 0;
-    font-size: 11px;
-    color: rgba(255,255,255,0.2);
-    letter-spacing: 1px;
-  }
-
-  /* ── Animations ── */
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .week-card:nth-child(1)  { animation-delay: 0.05s; }
-  .week-card:nth-child(2)  { animation-delay: 0.10s; }
-  .week-card:nth-child(3)  { animation-delay: 0.15s; }
-  .week-card:nth-child(4)  { animation-delay: 0.20s; }
-  .week-card:nth-child(5)  { animation-delay: 0.25s; }
-  .week-card:nth-child(6)  { animation-delay: 0.30s; }
-  .week-card:nth-child(7)  { animation-delay: 0.35s; }
-  .week-card:nth-child(8)  { animation-delay: 0.40s; }
-  .week-card:nth-child(9)  { animation-delay: 0.45s; }
-  .week-card:nth-child(10) { animation-delay: 0.50s; }
-  .week-card:nth-child(11) { animation-delay: 0.55s; }
-  .week-card:nth-child(12) { animation-delay: 0.60s; }
-  .week-card:nth-child(13) { animation-delay: 0.65s; }
-
-  /* ── Current week highlight ── */
-  .week-card.current-week {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 1px var(--gold), 0 4px 24px rgba(201,168,76,0.2);
-  }
-  .current-badge {
-    background: var(--gold);
-    color: var(--green-deep);
-    font-size: 9px;
-    font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 10px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-  }
+  .footer{text-align:center;padding:32px 0 0;font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:1px;}
 </style>
 </head>
 <body>
 <div class="container">
 
-  <!-- Header -->
   <div class="header">
-    <div class="header-flag">⛳</div>
-    <h1>2026 Mens<br><span>Golf League</span></h1>
-    <p class="header-sub">Wednesday Nights &nbsp;·&nbsp; 16 Weeks</p>
-    <div class="header-divider"></div>
+    <h1>2026 Mens <span>Golf League</span></h1>
+    <p class="header-sub">Wednesday Nights &nbsp;·&nbsp; Pony Hills CC</p>
+    <div class="gold-line"></div>
   </div>
 
-  <!-- Filter bar -->
-  <div class="filter-bar" id="filterBar">
-    <button class="filter-btn active" onclick="filterWeeks('all', this)">All Weeks</button>
-    <button class="filter-btn" onclick="filterWeeks('upcoming', this)">Upcoming</button>
-    <button class="filter-btn" onclick="filterWeeks('completed', this)">Completed</button>
+  <nav class="nav">
+    <button class="nav-btn active" onclick="showPage('leaderboard',this)">⛳ Leaderboard</button>
+    <button class="nav-btn" onclick="showPage('schedule',this)">📅 Schedule</button>
+    <button class="nav-btn" onclick="showPage('subs',this)">👤 Subs</button>
+  </nav>
+
+  <!-- LEADERBOARD PAGE -->
+  <div class="page active" id="page-leaderboard">
+    <div style="text-align:center;margin-top:20px;">
+      <div class="week-badge">Week 1 Standings — May 13, 2026</div>
+    </div>
+    <p class="updated">Last updated: May 13, 2026</p>
+    <div class="lb-wrap">
+      <div class="lb-thead">
+        <span>Pos</span><span>Team</span><span>Wk Pts</span><span>Total</span>
+      </div>
+      <div id="lb-body"></div>
+    </div>
   </div>
 
-  <!-- Legend -->
-  <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:var(--green-bright)"></div> Regular Play</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div> TBD by Standings</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div> Position Night</div>
+  <!-- SCHEDULE PAGE -->
+  <div class="page" id="page-schedule">
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterWeeks('all',this)">All Weeks</button>
+      <button class="filter-btn" onclick="filterWeeks('upcoming',this)">Upcoming</button>
+      <button class="filter-btn" onclick="filterWeeks('completed',this)">Completed</button>
+    </div>
+    <div id="schedule-body"></div>
   </div>
 
-  <!-- Schedule -->
-  <div id="scheduleContainer"></div>
+  <!-- SUBS PAGE -->
+  <div class="page" id="page-subs">
+    <div class="section-hdr" style="margin-top:20px;">
+      <h2>Available Subs</h2>
+      <div class="section-bar"></div>
+    </div>
+    <div class="subs-wrap">
+      <div class="sub-thead">
+        <span>Name</span><span>Handicap</span><span>Weeks Played</span>
+      </div>
+      <div id="subs-body"></div>
+    </div>
+    <div style="margin-top:12px;padding:12px 16px;background:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(255,255,255,0.08);">
+      <p style="font-size:12px;color:var(--gray-mid);font-style:italic;">Need a sub? Contact your team captain. Subs must have an established handicap or will play their first round to establish one (score minus par 33, max 18).</p>
+    </div>
+  </div>
 
-  <div class="footer">PAR 33 &nbsp;·&nbsp; MAX HANDICAP 18 &nbsp;·&nbsp; 21 PTS PER MATCHUP</div>
+  <div class="footer">PAR 33 &nbsp;·&nbsp; MAX HC 18 &nbsp;·&nbsp; 21 PTS PER MATCHUP</div>
 </div>
 
 <script>
 const players = {
-  1:  ["Garrett Larson",   "Riley Schmeidt"],
-  2:  ["Arin Boschee",     "Casey Beigh"],
-  3:  ["Tyler Krueger",    "Heath Feistner"],
-  4:  ["Scott Beekman",    "Wade Powell"],
-  5:  ["Jeremy Uecker",    "Payton Uecker"],
-  6:  ["Jeff Tiede",       "Soop Baysinger"],
-  7:  ["Mark Simonds",     "Mike Simonds"],
-  8:  ["Jacob Rosemore",   "Ethan Schmidt"],
-  9:  ["Mitch Korbel",     "Brandon Goergen"],
-  10: ["Gary Beigh",       "Tim Klaas"],
-  11: ["Robert Davis",     "Daylyn Baysinger"],
-  12: ["Jim Hegg",         "Brad Selland"],
-  13: ["Bud Miller",       "Jeff Poyer"],
-  14: ["Wesley Linke",     "Ryan Poyer"],
+  1: ["Garrett Larson",14,"Riley Schmeidt",14],
+  2: ["Arin Boschee",1,"Casey Beigh",9],
+  3: ["Tyler Krueger",1,"Heath Feistner",8],
+  4: ["Scott Beekman",10,"Wade Powell",9],
+  5: ["Jeremy Uecker",8,"Payton Uecker",17],
+  6: ["Jeff Tiede",5,"Soop Baysinger",12],
+  7: ["Mark Simonds",13,"Mike Simonds",18],
+  8: ["Jacob Rosemore",17,"Ethan Schmidt",2],
+  9: ["Mitch Korbel",18,"Brandon Goergen",7],
+  10:["Gary Beigh",10,"Tim Klaas",6],
+  11:["Robert Davis",14,"Daylyn Baysinger",15],
+  12:["Jim Hegg",18,"Brad Selland",11],
+  13:["Bud Miller",5,"Jeff Poyer",11],
+  14:["Wesley Linke",5,"Ryan Poyer",13],
 };
 
-const schedule = [
-  { week: 1,  date: "May 13, 2026",    matchups: [[1,9],[2,5],[3,8],[4,12],[6,10],[7,11],[13,14]] },
-  { week: 2,  date: "May 20, 2026",    matchups: [[1,2],[3,7],[4,9],[5,13],[6,11],[8,10],[12,14]] },
-  { week: 3,  date: "May 27, 2026",    matchups: [[1,11],[2,8],[3,13],[4,6],[5,10],[7,12],[9,14]] },
-  { week: 4,  date: "June 3, 2026",    matchups: [[1,8],[2,11],[3,9],[4,10],[5,6],[7,14],[12,13]] },
-  { week: 5,  date: "June 10, 2026",   matchups: [[1,4],[2,14],[3,10],[5,7],[6,12],[8,9],[11,13]] },
-  { week: 6,  date: "June 17, 2026",   matchups: [[1,13],[2,4],[3,6],[5,9],[7,10],[8,12],[11,14]] },
-  { week: 7,  date: "June 24, 2026",   matchups: [[1,10],[2,7],[3,4],[5,12],[6,14],[8,11],[9,13]] },
-  { week: 8,  date: "July 1, 2026",    matchups: [[1,6],[2,10],[3,12],[4,5],[7,13],[8,14],[9,11]] },
-  { week: 9,  date: "July 8, 2026",    matchups: [[1,3],[2,13],[4,8],[5,11],[6,7],[9,12],[10,14]] },
-  { week: 10, date: "July 15, 2026",   matchups: [[1,12],[2,3],[4,7],[5,14],[6,9],[8,13],[10,11]] },
-  { week: 11, date: "July 22, 2026",   matchups: [[1,5],[2,9],[3,11],[4,14],[6,13],[7,8],[10,12]] },
-  { week: 12, date: "July 29, 2026",   matchups: [[1,14],[2,12],[3,5],[4,11],[6,8],[7,9],[10,13]] },
-  { week: 13, date: "August 5, 2026",  matchups: [[1,7],[2,6],[3,14],[4,13],[5,8],[9,10],[11,12]] },
-  { week: 14, date: "August 12, 2026", matchups: null, tbd: true },
-  { week: 15, date: "August 19, 2026", matchups: null, tbd: true },
-  { week: 16, date: "August 26, 2026", matchups: null, position: true },
+const standings = [
+  {rank:1, team:9,  wkpts:18,  total:18},
+  {rank:2, team:2,  wkpts:14,  total:14},
+  {rank:3, team:8,  wkpts:13,  total:13},
+  {rank:4, team:10, wkpts:12,  total:12},
+  {rank:4, team:14, wkpts:12,  total:12},
+  {rank:6, team:11, wkpts:11,  total:11},
+  {rank:7, team:4,  wkpts:10.5,total:10.5},
+  {rank:7, team:12, wkpts:10.5,total:10.5},
+  {rank:9, team:7,  wkpts:10,  total:10},
+  {rank:10,team:6,  wkpts:9,   total:9},
+  {rank:10,team:13, wkpts:9,   total:9},
+  {rank:12,team:3,  wkpts:8,   total:8},
+  {rank:13,team:5,  wkpts:7,   total:7},
+  {rank:14,team:1,  wkpts:3,   total:3},
 ];
 
-// Detect current week based on today's date
+const subs = [
+  {name:"Stephen Davis",  hc:9,  played:"Week 1"},
+  {name:"Ian McClanahan", hc:6,  played:"Week 1"},
+];
+
+const schedule = [
+  {week:1, date:"May 13, 2026",    matchups:[[1,9],[2,5],[3,8],[4,12],[6,10],[7,11],[13,14]]},
+  {week:2, date:"May 20, 2026",    matchups:[[1,2],[3,7],[4,9],[5,13],[6,11],[8,10],[12,14]]},
+  {week:3, date:"May 27, 2026",    matchups:[[1,11],[2,8],[3,13],[4,6],[5,10],[7,12],[9,14]]},
+  {week:4, date:"June 3, 2026",    matchups:[[1,8],[2,11],[3,9],[4,10],[5,6],[7,14],[12,13]]},
+  {week:5, date:"June 10, 2026",   matchups:[[1,4],[2,14],[3,10],[5,7],[6,12],[8,9],[11,13]]},
+  {week:6, date:"June 17, 2026",   matchups:[[1,13],[2,4],[3,6],[5,9],[7,10],[8,12],[11,14]]},
+  {week:7, date:"June 24, 2026",   matchups:[[1,10],[2,7],[3,4],[5,12],[6,14],[8,11],[9,13]]},
+  {week:8, date:"July 1, 2026",    matchups:[[1,6],[2,10],[3,12],[4,5],[7,13],[8,14],[9,11]]},
+  {week:9, date:"July 8, 2026",    matchups:[[1,3],[2,13],[4,8],[5,11],[6,7],[9,12],[10,14]]},
+  {week:10,date:"July 15, 2026",   matchups:[[1,12],[2,3],[4,7],[5,14],[6,9],[8,13],[10,11]]},
+  {week:11,date:"July 22, 2026",   matchups:[[1,5],[2,9],[3,11],[4,14],[6,13],[7,8],[10,12]]},
+  {week:12,date:"July 29, 2026",   matchups:[[1,14],[2,12],[3,5],[4,11],[6,8],[7,9],[10,13]]},
+  {week:13,date:"August 5, 2026",  matchups:[[1,7],[2,6],[3,14],[4,13],[5,8],[9,10],[11,12]]},
+  {week:14,date:"August 12, 2026", tbd:true},
+  {week:15,date:"August 19, 2026", tbd:true},
+  {week:16,date:"August 26, 2026", position:true},
+];
+
+const weekDates = [
+  '2026-05-13','2026-05-20','2026-05-27','2026-06-03','2026-06-10','2026-06-17',
+  '2026-06-24','2026-07-01','2026-07-08','2026-07-15','2026-07-22','2026-07-29',
+  '2026-08-05','2026-08-12','2026-08-19','2026-08-26'
+];
+
 function getCurrentWeek() {
-  const today = new Date();
-  today.setHours(0,0,0,0);
-  const dates = [
-    new Date('2026-05-13'), new Date('2026-05-20'), new Date('2026-05-27'),
-    new Date('2026-06-03'), new Date('2026-06-10'), new Date('2026-06-17'),
-    new Date('2026-06-24'), new Date('2026-07-01'), new Date('2026-07-08'),
-    new Date('2026-07-15'), new Date('2026-07-22'), new Date('2026-07-29'),
-    new Date('2026-08-05'), new Date('2026-08-12'), new Date('2026-08-19'),
-    new Date('2026-08-26'),
-  ];
-  // A week is completed the day AFTER its Wednesday
-  // So show the next Wednesday on or after today as "This Week"
-  for (let i = 0; i < dates.length; i++) {
-    const dayAfter = new Date(dates[i]);
-    dayAfter.setDate(dayAfter.getDate() + 1);
-    if (today < dayAfter) return i + 1;
+  const today = new Date(); today.setHours(0,0,0,0);
+  for (let i=0;i<weekDates.length;i++) {
+    const d = new Date(weekDates[i]);
+    const next = new Date(weekDates[i]); next.setDate(next.getDate()+1);
+    if (today < next) return i+1;
   }
   return null;
 }
 
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── BUILD LEADERBOARD ──
+function buildLeaderboard() {
+  const lb = document.getElementById('lb-body');
+  lb.innerHTML = '';
+  standings.forEach((s,i) => {
+    const p = players[s.team];
+    const isTop3 = s.rank <= 3;
+    const showCut = i===3;
+    if (showCut) {
+      lb.innerHTML += `<div class="cut-line"><div class="cut-bar"></div><span class="cut-text">Field</span><div class="cut-bar"></div></div>`;
+    }
+    const rc = s.rank===1?'r1':s.rank===2?'r2':s.rank===3?'r3':'other';
+    const displayRank = (i===0||standings[i].rank!==standings[i-1].rank) ? s.rank : 'T'+s.rank;
+    lb.innerHTML += `
+      <div class="lb-row ${isTop3?'gold-row':''}">
+        <div class="rank ${rc}">${displayRank}</div>
+        <div class="team-info">
+          <div class="player-row"><span class="player-name">${p[0]}</span><span class="hc-badge">${p[1]}</span></div>
+          <div class="player-row"><span class="player-name">${p[2]}</span><span class="hc-badge">${p[3]}</span></div>
+          <div class="team-num-lbl">Team ${s.team}</div>
+        </div>
+        <div class="wk-pts">${s.wkpts}</div>
+        <div class="season-pts">${s.total}</div>
+      </div>`;
+  });
+}
+
+// ── BUILD SCHEDULE ──
 function buildSchedule(filter) {
   const currentWeek = getCurrentWeek();
-  const container = document.getElementById('scheduleContainer');
-  container.innerHTML = '';
-
-  schedule.forEach((wk, idx) => {
-    const isPast = currentWeek && wk.week < currentWeek;
-    const isCurrent = wk.week === currentWeek;
-
-    if (filter === 'upcoming' && isPast) return;
-    if (filter === 'completed' && !isPast) return;
+  const body = document.getElementById('schedule-body');
+  body.innerHTML = '';
+  schedule.forEach((wk,idx) => {
+    const d = new Date(weekDates[idx] || '2026-08-26');
+    const dayAfter = new Date(d); dayAfter.setDate(dayAfter.getDate()+1);
+    const today = new Date(); today.setHours(0,0,0,0);
+    const isPast = today >= dayAfter;
+    const isCurrent = wk.week === getCurrentWeek();
+    if (filter==='upcoming' && isPast) return;
+    if (filter==='completed' && !isPast) return;
 
     const card = document.createElement('div');
-    card.className = 'week-card' + (isCurrent ? ' current-week' : '') + (isCurrent || wk.week === 1 ? ' open' : '');
+    card.className = 'week-card' + (isCurrent?' current-week':'') + (isCurrent?' open':'');
     card.dataset.week = wk.week;
 
-    let headerClass = 'week-header' + (idx % 2 === 1 ? ' alt' : '') + (wk.tbd ? ' tbd' : '') + (wk.position ? ' position' : '');
-    let weekLabel = wk.position ? '⭐ POSITION NIGHT' : `WEEK ${wk.week}`;
-    let currentBadge = isCurrent ? '<span class="current-badge">This Week</span>' : '';
+    let hdrClass = 'week-header'+(idx%2===1?' alt':'')+(wk.tbd?' tbd':'')+(wk.position?' position':'');
+    let titleStr = wk.position ? '⭐ POSITION NIGHT' : `WEEK ${wk.week}`;
+    let badge = isCurrent ? '<span class="current-badge">This Week</span>' : '';
 
-    let matchupsHtml = '';
+    let matchHtml = '';
     if (wk.position) {
-      matchupsHtml = `<div class="tbd-message">🏆 Final standings determine all matchups.<br>Top teams face off — League Winner crowned tonight!</div>`;
+      matchHtml = `<div class="tbd-msg">🏆 Final standings determine all matchups — League Winner crowned tonight!</div>`;
     } else if (wk.tbd) {
-      matchupsHtml = `<div class="tbd-message">⏳ Matchups to be determined by season standings after Week 13.<br>(1st vs 2nd · 3rd vs 4th · 5th vs 6th · etc.)</div>`;
+      matchHtml = `<div class="tbd-msg">⏳ Matchups determined by standings after Week 13 — 1st vs 2nd · 3rd vs 4th · etc.</div>`;
     } else {
-      matchupsHtml = wk.matchups.map(([a, b]) => {
-        const pa = players[a], pb = players[b];
-        return `
-          <div class="matchup-row">
-            <div class="team-side">
-              <span class="team-num">Team ${a}</span>
-              <span class="player-name">${pa[0]}</span>
-              <span class="player-name">${pa[1]}</span>
-            </div>
-            <div class="vs-badge">VS</div>
-            <div class="team-side right">
-              <span class="team-num" style="display:block;text-align:right">Team ${b}</span>
-              <span class="player-name">${pb[0]}</span>
-              <span class="player-name">${pb[1]}</span>
-            </div>
-          </div>`;
+      matchHtml = wk.matchups.map(([a,b]) => {
+        const pa=players[a], pb=players[b];
+        return `<div class="matchup-row">
+          <div class="team-side">
+            <div class="team-num-tag">Team ${a}</div>
+            <div class="player-row"><span class="player-name">${pa[0]}</span><span class="hc-badge">${pa[1]}</span></div>
+            <div class="player-row"><span class="player-name">${pa[2]}</span><span class="hc-badge">${pa[3]}</span></div>
+          </div>
+          <div class="vs-badge">VS</div>
+          <div class="team-side right">
+            <div class="team-num-tag">Team ${b}</div>
+            <div class="player-row"><span class="player-name">${pb[0]}</span><span class="hc-badge">${pb[1]}</span></div>
+            <div class="player-row"><span class="player-name">${pb[2]}</span><span class="hc-badge">${pb[3]}</span></div>
+          </div>
+        </div>`;
       }).join('');
     }
 
     card.innerHTML = `
-      <div class="${headerClass}" onclick="toggleCard(this)">
+      <div class="${hdrClass}" onclick="this.closest('.week-card').classList.toggle('open')">
         <div class="week-label">
-          <div class="week-num">${wk.position ? '16' : wk.week}</div>
+          <div class="week-num">${wk.position?'16':wk.week}</div>
           <div class="week-info">
-            <div class="week-title">${weekLabel} ${currentBadge}</div>
-            <div class="week-date">${wk.date} &nbsp;·&nbsp; Wednesday</div>
+            <div class="week-title">${titleStr} ${badge}</div>
+            <div class="week-date">${wk.date} · Wednesday</div>
           </div>
         </div>
         <div class="week-toggle">▼</div>
       </div>
-      <div class="matchups">${matchupsHtml}</div>`;
-
-    container.appendChild(card);
+      <div class="matchups">${matchHtml}</div>`;
+    body.appendChild(card);
   });
 }
 
-function toggleCard(header) {
-  const card = header.closest('.week-card');
-  card.classList.toggle('open');
-}
-
 function filterWeeks(type, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   buildSchedule(type);
 }
 
-buildSchedule('all');
+// ── BUILD SUBS ──
+function buildSubs() {
+  const body = document.getElementById('subs-body');
+  subs.forEach(s => {
+    body.innerHTML += `
+      <div class="sub-row">
+        <div><div class="sub-name">${s.name}</div><div class="sub-note">Available to sub</div></div>
+        <div class="sub-hc" style="text-align:center">${s.hc}</div>
+        <div class="sub-played">${s.played}</div>
+      </div>`;
+  });
+}
 
-// Auto-scroll to current week
-setTimeout(() => {
-  const currentWeek = getCurrentWeek();
-  if (currentWeek) {
-    const el = document.querySelector(`[data-week="${currentWeek}"]`);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-}, 400);
+buildLeaderboard();
+buildSchedule('all');
+buildSubs();
+
+setTimeout(()=>{
+  const cw = getCurrentWeek();
+  if(cw){const el=document.querySelector(`[data-week="${cw}"]`);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});}
+},400);
 </script>
 </body>
 </html>
