@@ -106,6 +106,7 @@
     <button class="nav-btn active" onclick="showPage('leaderboard',this)">⛳ Leaderboard</button>
     <button class="nav-btn" onclick="showPage('schedule',this)">📅 Schedule</button>
     <button class="nav-btn" onclick="showPage('subs',this)">👤 Subs</button>
+    <button class="nav-btn" onclick="showPage('news',this)">📰 News</button>
   </nav>
   <div class="page active" id="page-leaderboard">
     <div class="week-selector">
@@ -134,6 +135,84 @@
     </div>
     <div class="sub-note-box">Need a sub? Contact your team captain. Subs with no prior HC establish one after their first round (score minus par 33, max 18). Check the 2025 reference list posted at the clubhouse for returning subs.</div>
   </div>
+  <!-- NEWS PAGE -->
+  <div class="page" id="page-news">
+    <div style="margin-top:20px;">
+
+      <!-- Issue Header -->
+      <div style="text-align:center;margin-bottom:24px;">
+        <div style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gray-mid);margin-bottom:6px;">Pony Hills Country Club</div>
+        <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--white);line-height:1.1;">News on the Hill</div>
+        <div style="width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:10px auto;"></div>
+        <div style="font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;">Week 5 Edition &nbsp;·&nbsp; Wednesday, June 10, 2026</div>
+        <div style="margin-top:10px;font-size:13px;color:var(--gray-mid);font-style:italic;line-height:1.6;padding:0 10px;">"The names are familiar. The leader is new. And the pasture is paying attention."</div>
+      </div>
+
+      <!-- Intro -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px;margin-bottom:16px;">
+        <p style="font-size:13px;line-height:1.8;color:var(--cream);">Four weeks into the season, the leaderboard is beginning to take shape. Some folks spend their mornings checking crops. Others check cattle. And at least one loyal reader has been known to check the Pony Hills standings before either.</p>
+      </div>
+
+      <!-- 1st Place -->
+      <div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.3);border-radius:14px;padding:18px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--gold);">1st</div>
+          <div style="width:1px;height:30px;background:rgba(201,168,76,.3);"></div>
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--white);">Mitch Korbel &amp; Brandon Goergen</div>
+            <div style="font-size:11px;color:var(--gold);">55 Points &nbsp;·&nbsp; Team 9</div>
+          </div>
+        </div>
+        <p style="font-size:13px;line-height:1.8;color:var(--cream);margin-bottom:8px;">Last season Team 9 spent most of its time looking up the standings. This season they're sitting on top of them.</p>
+        <p style="font-size:13px;line-height:1.8;color:var(--cream);margin-bottom:8px;">Their rise to first place has become one of the early stories of the summer. Mitch continues to quietly stack points while Brandon has embraced the responsibilities that come with being league leader.</p>
+        <p style="font-size:13px;line-height:1.8;color:var(--cream);margin-bottom:8px;">Reports indicate he remains fully aware of his position atop the leaderboard.</p>
+        <p style="font-size:13px;line-height:1.8;color:var(--cream);">Sources also indicate he's willing to discuss it. At length.</p>
+      </div>
+
+      <!-- 2nd Place -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#b8b8b8;">2nd</div>
+          <div style="width:1px;height:30px;background:rgba(255,255,255,.15);"></div>
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--white);">Arin Boschee &amp; Casey Beigh</div>
+            <div style="font-size:11px;color:var(--gold);">52 Points &nbsp;·&nbsp; Team 2</div>
+          </div>
+        </div>
+        <p style="font-size:13px;line-height:1.8;color:var(--cream);margin-bottom:8px;">If seeing Arin and Casey near the top of the standings surprises you, then this must be your first summer at Pony Hills.</p>
+        <p style="font-size:13px;line-height:1.8;color:var(--cream);margin-bottom:8px;">Year after year they seem to find themselves in contention. Three points off the lead isn't where most teams want to see them.</p>
+        <p style="font-size:13px;line-height:1.8;color:var(--cream);margin-bottom:8px;">The former champions aren't making much noise.</p>
+        <p style="font-size:13px;line-height:1.8;color:var(--cream);">They're simply lurking. Which might be even more dangerous.</p>
+      </div>
+
+      <!-- 3rd Place -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#c87941;">3rd</div>
+          <div style="width:1px;height:30px;background:rgba(255,255,255,.15);"></div>
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--white);">Jim Hegg &amp; Brad Selland</div>
+            <div style="font-size:11px;color:var(--gold);">50 Points &nbsp;·&nbsp; Team 12</div>
+          </div>
+        </div>
+        <p style="font-size:13px;line-height:1.8;color:var(--cream);margin-bottom:8px;">Every season somebody predicts the veterans are finally slowing down. Every season Jim and Brad politely disagree.</p>
+        <p style="font-size:13px;line-height:1.8;color:var(--cream);margin-bottom:8px;">The years keep adding up. The scorecards keep getting signed. And somehow the old guard keeps finding its way onto the front page of the standings.</p>
+        <p style="font-size:13px;line-height:1.8;color:var(--cream);">Only five points back, they're right where they've always wanted to be. Within striking distance.</p>
+      </div>
+
+      <!-- What's Next -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px;margin-bottom:16px;">
+        <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--gold);margin-bottom:12px;">What's Next?</div>
+        <p style="font-size:13px;line-height:1.8;color:var(--cream);margin-bottom:8px;">Can Mitch and Brandon keep proving the doubters wrong?</p>
+        <p style="font-size:13px;line-height:1.8;color:var(--cream);margin-bottom:8px;">Do Arin and Casey make their annual march toward the top?</p>
+        <p style="font-size:13px;line-height:1.8;color:var(--cream);margin-bottom:8px;">Do Jim and Brad remind everyone that experience never goes out of style?</p>
+        <p style="font-size:13px;line-height:1.8;color:var(--cream);margin-bottom:8px;">One thing's for certain. The race is getting tighter. The stories are getting better. And the pasture is just getting started.</p>
+        <p style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--gold);margin-top:14px;text-align:center;">This… is News on the Hill.</p>
+      </div>
+
+    </div>
+  </div>
+
   <div class="footer">PAR 33 &nbsp;·&nbsp; MAX HC 18 &nbsp;·&nbsp; 21 PTS PER MATCHUP</div>
 </div>
 <script>
