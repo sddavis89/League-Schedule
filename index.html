@@ -470,8 +470,25 @@ const weeklyStandings={
     {rank:13,team:3,  p1hc:1,  p2hc:11, wkpts:9.5, total:140.5},
     {rank:14,team:11, p1hc:14, p2hc:14, wkpts:7,   total:138.5}
   ]}
+,
+  16:{date:"August 26, 2026",standings:[
+    {rank:1, team:2,  p1hc:0,  p2hc:8,  wkpts:12.5,total:196.5},
+    {rank:2, team:12, p1hc:16, p2hc:10, wkpts:8.5, total:191},
+    {rank:3, team:8,  p1hc:12, p2hc:4,  wkpts:8.5, total:181.5},
+    {rank:4, team:5,  p1hc:6,  p2hc:11, wkpts:12.5,total:180},
+    {rank:5, team:13, p1hc:3,  p2hc:5,  wkpts:0,   total:160.5},
+    {rank:6, team:10, p1hc:10, p2hc:7,  wkpts:0,   total:155},
+    {rank:7, team:9,  p1hc:14, p2hc:3,  wkpts:0,   total:153.5},
+    {rank:8, team:6,  p1hc:6,  p2hc:10, wkpts:0,   total:152},
+    {rank:9, team:4,  p1hc:10, p2hc:9,  wkpts:0,   total:151.5},
+    {rank:9, team:7,  p1hc:12, p2hc:18, wkpts:0,   total:151.5},
+    {rank:11,team:14, p1hc:7,  p2hc:14, wkpts:0,   total:142},
+    {rank:12,team:1,  p1hc:13, p2hc:12, wkpts:0,   total:141.5},
+    {rank:13,team:3,  p1hc:1,  p2hc:11, wkpts:0,   total:140.5},
+    {rank:14,team:11, p1hc:14, p2hc:14, wkpts:0,   total:138.5}
+  ]}
 };
-const latestWeek=15;
+const latestWeek=16;
 const subs=[
   {name:"Stephen Davis",    hc:10, weeksPlayed:9, lastPlayed:"Wk 13 — Aug 5"},
   {name:"Ian McClanahan",   hc:6,  weeksPlayed:7, lastPlayed:"Wk 14 — Aug 12"},
@@ -511,7 +528,7 @@ function getCurrentWeek(){const t=new Date();t.setHours(0,0,0,0);for(let i=0;i<w
 function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');btn.classList.add('active');}
 function buildWeekTabs(){const c=document.getElementById('week-tabs');c.innerHTML='';for(let w=1;w<=15;w++){const has=!!weeklyStandings[w];const b=document.createElement('button');b.className='week-tab'+(w===selectedWeek?' active':'')+(!has?' future':'');b.textContent='Wk '+w;if(has)b.onclick=()=>selectWeek(w);c.appendChild(b);}}
 function selectWeek(w){selectedWeek=w;buildWeekTabs();buildLeaderboard();}
-function buildLeaderboard(){const data=weeklyStandings[selectedWeek];if(!data)return;document.getElementById('lb-date').textContent=data.date+'  ·  Week '+selectedWeek+' of 15';const lb=document.getElementById('lb-body');lb.innerHTML='';data.standings.forEach((s,i)=>{const p=players[s.team];const top3=s.rank<=3;if(i===3)lb.innerHTML+=`<div class="cut-line"><div class="cut-bar"></div><span class="cut-text">Field</span><div class="cut-bar"></div></div>`;const rc=s.rank===1?'r1':s.rank===2?'r2':s.rank===3?'r3':'other';const showR=(i===0||data.standings[i].rank!==data.standings[i-1].rank);const dr=showR?s.rank:'T'+s.rank;lb.innerHTML+=`<div class="lb-row ${top3?'gold-row':''}"><div class="rank ${rc}">${dr}</div><div class="team-info"><div class="player-row"><span class="player-name">${p[0]}</span><span class="hc-badge">${s.p1hc}</span></div><div class="player-row"><span class="player-name">${p[2]}</span><span class="hc-badge">${s.p2hc}</span></div><div class="team-num-lbl">Team ${s.team}</div></div><div class="wk-pts">${s.wkpts}</div><div class="season-pts">${s.total}</div></div>`;});}
+function buildLeaderboard(){const data=weeklyStandings[selectedWeek];if(!data)return;document.getElementById('lb-date').textContent=data.date+'  ·  Week '+selectedWeek+' of 15';const lb=document.getElementById('lb-body');lb.innerHTML='';if(selectedWeek===16){lb.innerHTML+=`<div style="background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.05));border:1px solid rgba(201,168,76,.4);border-radius:14px;padding:20px;margin-bottom:16px;text-align:center;"><div style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:8px;">Pony Hills Country Club</div><div style="font-size:20px;font-weight:700;color:#fff;font-family:Georgia,serif;margin-bottom:4px;">🏆 2026 Season Champions</div><div style="width:60px;height:1px;background:#c9a84c;margin:10px auto;"></div><div style="margin-bottom:8px;"><div style="font-size:13px;color:#c9a84c;font-weight:700;">🥇 Champions</div><div style="font-size:15px;font-weight:700;color:#fff;">Arin Boschee &amp; Casey Beigh</div><div style="font-size:11px;color:#888;">Team 2 · 196.5 pts</div></div><div style="margin-bottom:8px;"><div style="font-size:13px;color:#b8b8b8;font-weight:700;">🥈 2nd Place</div><div style="font-size:14px;font-weight:700;color:#fff;">Jim Hegg &amp; Brad Selland</div><div style="font-size:11px;color:#888;">Team 12 · 191 pts</div></div><div style="margin-bottom:12px;"><div style="font-size:13px;color:#c87941;font-weight:700;">🥉 3rd Place</div><div style="font-size:14px;font-weight:700;color:#fff;">Jacob Rosemore &amp; Ethan Schmidt</div><div style="font-size:11px;color:#888;">Team 8 · 181.5 pts</div></div><div style="font-size:11px;color:#888;font-style:italic;">Congratulations to all teams on a great season at Pony Hills Country Club!</div></div>`;};data.standings.forEach((s,i)=>{const p=players[s.team];const top3=s.rank<=3;if(i===3)lb.innerHTML+=`<div class="cut-line"><div class="cut-bar"></div><span class="cut-text">Field</span><div class="cut-bar"></div></div>`;const rc=s.rank===1?'r1':s.rank===2?'r2':s.rank===3?'r3':'other';const showR=(i===0||data.standings[i].rank!==data.standings[i-1].rank);const dr=showR?s.rank:'T'+s.rank;lb.innerHTML+=`<div class="lb-row ${top3?'gold-row':''}"><div class="rank ${rc}">${dr}</div><div class="team-info"><div class="player-row"><span class="player-name">${p[0]}</span><span class="hc-badge">${s.p1hc}</span></div><div class="player-row"><span class="player-name">${p[2]}</span><span class="hc-badge">${s.p2hc}</span></div><div class="team-num-lbl">Team ${s.team}</div></div><div class="wk-pts">${s.wkpts}</div><div class="season-pts">${s.total}</div></div>`;});}
 function buildSchedule(filter){const body=document.getElementById('schedule-body');body.innerHTML='';schedule.forEach((wk,idx)=>{const d=new Date(weekDates[idx]||'2026-08-26');const da=new Date(d);da.setDate(da.getDate()+1);const t=new Date();t.setHours(0,0,0,0);const isPast=t>=da;const isCurrent=wk.week===getCurrentWeek();if(filter==='upcoming'&&isPast)return;if(filter==='completed'&&!isPast)return;const card=document.createElement('div');card.className='week-card'+(isCurrent?' current-week open':'');card.dataset.week=wk.week;let hc='week-header'+(idx%2===1?' alt':'')+(wk.tbd?' tbd':'')+(wk.position?' position':'');let title=wk.position?'⭐ POSITION NIGHT':'WEEK '+wk.week;let badge=isCurrent?'<span class="current-badge">This Week</span>':'';let mh='';if(wk.position){
   const ld=weeklyStandings[latestWeek];
   const moneyMatches=[[2,12],[8,5]];
